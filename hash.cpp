@@ -4,6 +4,11 @@ int main()
 {
     int n,t2,t3,t4,d2=0,d3=0,d4=0,q,r;
     cin>>n>>t2>>t3>>t4;
+    if(n==1)
+    {
+    q=1;
+    goto label;
+    }
     if(t2>=1)
     {
     r=n%2;
@@ -11,14 +16,13 @@ int main()
     if(q>t2)
     {
       q=q-t2+1;
-      t2=t2-1;
-      d2=t2;
+      d2=t2-1;
       q=2*q+r;
     }
     else 
     {
-    d2=q;
-    q=0;
+    d2=q-1;
+    q=2+r;
     }
     }
     else
@@ -30,9 +34,13 @@ int main()
       if(q>t3)
       {
       q=q-t3+1;
-      t3=t3-1;
-      d3=t3;
+      d3=t3-1;
       q=3*q+r;
+      if(q%4==1&&t4>=((q+3)/4))
+      {
+          d3-=1;
+          q+=3;
+      }
     }
     else{
         if(r==0)
@@ -44,6 +52,11 @@ int main()
         {
         d3=q-1;
         q=3+r;
+        }
+        if(q==5&&d3>=1)
+        {
+            d3-=1;
+            q+=3;
         }
 
     }
@@ -61,9 +74,17 @@ if(t4>=1&&q>0&&n>3)
     else
     {
     d4=q;
-    q=0;
+    q=r;
 }
 }
+if(r==1&&t3>=1&&t2>=1)
+{    if(d4>=1)
+{
+    d4-=1;
+}
+    d2+=1;
+    d3+=1;
+}cout<<" value of q is"<<q;
 if(q>=2&&n>1)
 {
     if(t3>=1&&q>=3)
@@ -77,11 +98,9 @@ if(q>=2&&n>1)
     d2+=1;
     }
 }
-if(n==1)
-q=1;
+label:
 cout<<" no of deliveries to t2"<<d2<<endl;
 cout<<" no of deliveries to t3"<<d3<<endl;
 cout<<" no of deliveries to t4"<<d4<<endl;
-cout<<"no of pizzas not delivered"<<q<<endl;
 return 0;
 }
